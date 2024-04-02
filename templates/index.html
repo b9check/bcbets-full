@@ -1,0 +1,155 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NBA Betting Analysis</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: auto;
+            background-color: #fff;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .table-container {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+        }
+
+        .table1-container,
+        .table2-container {
+            flex: 1;
+            padding: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        h1 {
+            color: #007bff;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .table1-container table td:nth-child(4) {
+            font-weight: bold;
+        }
+
+        /* Additional CSS to color rows in table1 */
+        .table1-container table tr {
+            transition: background-color 0.3s;
+        }
+
+        .table1-container table tr:hover {
+            background-color: #f0f0f0 !important; /* Light gray on hover */
+        }
+
+        .table1-container table .conditional-row-green {
+            background-color: #aaffaa !important; /* Light green for values greater than 30 */
+        }
+
+        .table1-container table .conditional-row-red {
+            background-color: #ffaaaa !important; /* Light red for values less than 10 */
+        }
+
+        .table1-container table .conditional-row-yellow {
+            background-color: #ffffaa !important; /* Light yellow for values between 10 and 30 */
+        }
+
+        .table1-container table tr.hover-effect {
+            background-color: #f0f0f0 !important; /* Light gray on hover */
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>NBA Betting Analysis</h1>
+        <div class="table-container">
+            <div class="table1-container">
+                <h1>DraftKings Moneylines</h1>
+                {{ table1_html|safe }}
+            </div>
+            <div class="table2-container">
+                <h1>NBA ELO Rankings</h1>
+                {{ table2_html|safe }}
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript to color rows based on conditions -->
+   <!-- ... (previous HTML code remains unchanged) ... -->
+
+<!-- JavaScript to convert last column values to percentages -->
+<script>
+    $(document).ready(function () {
+        // Get all rows in the first table
+        var rows = $('.table1-container table tr');
+
+        // Iterate through rows and convert the last cell value to percentage
+        rows.each(function () {
+            var lastCell = $(this).find('td:last-child');
+            var lastCellValue = parseFloat(lastCell.text().trim());
+
+            if (!isNaN(lastCellValue)) {
+                // Convert the value to percentage and update the cell
+                var percentageValue = (lastCellValue * 100).toFixed(0) + '%';
+                lastCell.text(percentageValue);
+
+                // Apply conditional formatting based on the percentage
+                if (lastCellValue > 0.5) {
+                    $(this).addClass('conditional-row-green'); // Apply green color
+                } else if (lastCellValue < 0.2) {
+                    $(this).addClass('conditional-row-red'); // Apply red color
+                } else {
+                    $(this).addClass('conditional-row-yellow'); // Apply yellow color
+                }
+            }
+        });
+
+        // Add hover effect
+        rows.hover(
+            function () {
+                $(this).addClass('hover-effect');
+            },
+            function () {
+                $(this).removeClass('hover-effect');
+            }
+        );
+    });
+</script>
+</body>
+</html>
