@@ -126,7 +126,7 @@
 
             if (!isNaN(lastCellValue)) {
                 // Convert the value to percentage and update the cell
-                var percentageValue = (lastCellValue * 100).toFixed(0) + '%';
+                var percentageValue = (lastCellValue * 100).toFixed(1) + '%';
                 lastCell.text(percentageValue);
 
                 // Apply conditional formatting based on the percentage
