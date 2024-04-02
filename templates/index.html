@@ -130,9 +130,9 @@
                 lastCell.text(percentageValue);
 
                 // Apply conditional formatting based on the percentage
-                if (lastCellValue > 0.5) {
+                if (lastCellValue > 0.1) {
                     $(this).addClass('conditional-row-green'); // Apply green color
-                } else if (lastCellValue < 0.2) {
+                } else if (lastCellValue < 0.05) {
                     $(this).addClass('conditional-row-red'); // Apply red color
                 } else {
                     $(this).addClass('conditional-row-yellow'); // Apply yellow color
