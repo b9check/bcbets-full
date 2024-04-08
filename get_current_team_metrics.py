@@ -1,20 +1,14 @@
 from nba_api.stats.endpoints import leaguegamelog
 import pandas as pd
-import requests
-
-
-# Set timeout to 60 seconds
-requests.adapters.DEFAULT_RETRIES = 5
-session = requests.Session()
-session.keep_alive = False
-TIMEOUT = 60
 
 
 def get_league_game_log(season):
     # This function gets league game log data
     league_game_log = leaguegamelog.LeagueGameLog(
         season=season,
-        season_type_all_star='Regular Season'
+        season_type_all_star='Regular Season',
+        proxy='124.217.97.131:8080', 
+        timeout=60
     )
     league_game_log_data = league_game_log.get_data_frames()[0]
     return league_game_log_data
@@ -119,5 +113,5 @@ def get_current_metrics():
 
 
 if __name__ == "__main__":
-    data = get_league_game_log('2023-24')
     [current_metrics, rounded_metrics] = get_current_metrics()
+    print(rounded_metrics)
