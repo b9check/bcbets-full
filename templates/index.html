@@ -56,11 +56,13 @@
         }
 
         th {
-            background-color: black; /* Set background color to black */
-            color: transparent; /* Make text color transparent */
-            background-image: linear-gradient(to right, #006400, #00FF00); /* Gradient background for text */
-            -webkit-background-clip: text; /* Clip background to text */
-            -webkit-text-fill-color: transparent; /* Make text color transparent */
+            background: 
+                /* Gradient background for the text */
+                linear-gradient(to right, #006400, #00FF00),
+                /* Black background for the cell */
+                black;
+            -webkit-background-clip: text; /* Clip the background to the text */
+            -webkit-text-fill-color: transparent; /* Make the text color transparent */
             text-align: center; /* Center-align the text */
             border: 1px solid black; /* Adding border to create gridlines */
         }
