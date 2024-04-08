@@ -99,59 +99,50 @@
 </head>
 <body>
     <div class="container">
-        <h1>NBA Betting Analysis</h1>
-        <div class="table-container">
-            <div class="table1-container">
-                <h1>DraftKings Moneylines</h1>
-                {{ table1_html|safe }}
-            </div>
-            <div class="table2-container">
-                <h1>NBA ELO Rankings</h1>
-                {{ table2_html|safe }}
-            </div>
+        <p>Welcome to BC Bets! This website uses machine learning to identify favorable NBA money line bets. It pulls all pregame lines listed on DraftKings’ website every hour and evaluates them. For each game, it picks the better of the two lines and calculates a “confidence”, with higher confidence corresponding to a better bet. Note that this methodology does not account for recent player injuries which shift the lines. It is recommended to track the health of star players and avoid bets in which the lines are heavily shifted by their availability. Make it pretty to look at, you can change font and formatting as much as you want.</p>
+        <div class="table1-container">
+            <h1>DraftKings Moneylines</h1>
+            {{ table1_html|safe }}
         </div>
     </div>
 
-    <!-- JavaScript to color rows based on conditions -->
-   <!-- ... (previous HTML code remains unchanged) ... -->
+    <!-- JavaScript to convert last column values to percentages -->
+    <script>
+        $(document).ready(function () {
+            // Get all rows in the first table
+            var rows = $('.table1-container table tr');
 
-<!-- JavaScript to convert last column values to percentages -->
-<script>
-    $(document).ready(function () {
-        // Get all rows in the first table
-        var rows = $('.table1-container table tr');
+            // Iterate through rows and convert the last cell value to percentage
+            rows.each(function () {
+                var lastCell = $(this).find('td:last-child');
+                var lastCellValue = parseFloat(lastCell.text().trim());
 
-        // Iterate through rows and convert the last cell value to percentage
-        rows.each(function () {
-            var lastCell = $(this).find('td:last-child');
-            var lastCellValue = parseFloat(lastCell.text().trim());
+                if (!isNaN(lastCellValue)) {
+                    // Convert the value to percentage and update the cell
+                    var percentageValue = (lastCellValue * 100).toFixed(1) + '%';
+                    lastCell.text(percentageValue);
 
-            if (!isNaN(lastCellValue)) {
-                // Convert the value to percentage and update the cell
-                var percentageValue = (lastCellValue * 100).toFixed(1) + '%';
-                lastCell.text(percentageValue);
-
-                // Apply conditional formatting based on the percentage
-                if (lastCellValue > 0.1) {
-                    $(this).addClass('conditional-row-green'); // Apply green color
-                } else if (lastCellValue < 0.05) {
-                    $(this).addClass('conditional-row-red'); // Apply red color
-                } else {
-                    $(this).addClass('conditional-row-yellow'); // Apply yellow color
+                    // Apply conditional formatting based on the percentage
+                    if (lastCellValue > 0.1) {
+                        $(this).addClass('conditional-row-green'); // Apply green color
+                    } else if (lastCellValue < 0.05) {
+                        $(this).addClass('conditional-row-red'); // Apply red color
+                    } else {
+                        $(this).addClass('conditional-row-yellow'); // Apply yellow color
+                    }
                 }
-            }
-        });
+            });
 
-        // Add hover effect
-        rows.hover(
-            function () {
-                $(this).addClass('hover-effect');
-            },
-            function () {
-                $(this).removeClass('hover-effect');
-            }
-        );
-    });
-</script>
+            // Add hover effect
+            rows.hover(
+                function () {
+                    $(this).addClass('hover-effect');
+                },
+                function () {
+                    $(this).removeClass('hover-effect');
+                }
+            );
+        });
+    </script>
 </body>
 </html>
