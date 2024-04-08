@@ -1,5 +1,13 @@
 from nba_api.stats.endpoints import leaguegamelog
 import pandas as pd
+import requests
+
+
+# Set timeout to 60 seconds
+requests.adapters.DEFAULT_RETRIES = 5
+session = requests.Session()
+session.keep_alive = False
+TIMEOUT = 60
 
 
 def get_league_game_log(season):
