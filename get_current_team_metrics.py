@@ -7,8 +7,7 @@ def get_league_game_log(season):
     league_game_log = leaguegamelog.LeagueGameLog(
         season=season,
         season_type_all_star='Regular Season',
-        proxy='124.217.97.131:8080', 
-        timeout=100
+        timeout=30
     )
     league_game_log_data = league_game_log.get_data_frames()[0]
     return league_game_log_data
