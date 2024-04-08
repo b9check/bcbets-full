@@ -1,153 +1,97 @@
-<!-- templates/index.html -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NBA Betting Analysis</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f8f9fa;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-        }
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f8f9fa;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        color: #333; /* Text color */
+    }
 
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: auto;
-            background-color: #fff;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
-            overflow: hidden;
-            padding: 20px;
-            text-align: center; /* Center-align content within the container */
-        }
+    .container {
+        width: 90%;
+        max-width: 90%; /* Adjust max-width to control how wide the container can get */
+        margin: auto;
+        background-color: #fff;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        overflow: hidden;
+        padding: 20px;
+        text-align: justify; /* Justify text */
+    }
 
-        .table-container {
-            display: flex;
-            justify-content: space-between;
-            overflow-x: auto; /* Enable horizontal scrolling */
-            overflow-y: auto; /* Enable vertical scrolling */
-        }
+    .table-container {
+        display: flex;
+        flex-wrap: wrap; /* Allow flex items to wrap to next line */
+        justify-content: space-between;
+        overflow-x: auto; /* Enable horizontal scrolling */
+        overflow-y: auto; /* Enable vertical scrolling */
+    }
 
-        .table1-container,
-        .table2-container {
-            flex: 1;
-            padding: 20px;
-        }
+    .table1-container,
+    .table2-container {
+        flex-basis: 100%; /* Initially, each table should take up 100% width */
+        margin-top: 20px; /* Add space between tables */
+    }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
 
-        th, td {
-            padding: 15px;
-            text-align: center;
-            border-bottom: 1px solid #ddd;
-        }
+    th, td {
+        padding: 15px;
+        text-align: center;
+        border-bottom: 1px solid #ddd;
+    }
 
-        th {
-            background-color: #007bff;
-            color: #fff;
-        }
+    th {
+        background-color: #333;
+        color: #fff;
+    }
 
-        h1 {
-            color: #007bff;
-            text-align: center;
-            margin-bottom: 20px;
-        }
+    h1 {
+        color: #2ecc71; /* Green */
+        text-align: center;
+        margin-bottom: 20px;
+    }
 
-        .table1-container table td:nth-child(4) {
-            font-weight: bold;
-        }
+    p {
+        color: #555; /* Dark gray for paragraphs */
+        text-align: justify; /* Justify text */
+        margin-bottom: 20px;
+    }
 
-        /* Additional CSS to color rows in table1 */
-        .table1-container table tr {
-            transition: background-color 0.3s;
-        }
+    .table1-container table td:nth-child(4) {
+        font-weight: bold;
+    }
 
-        .table1-container table tr:hover {
-            background-color: #f0f0f0 !important; /* Light gray on hover */
-        }
+    /* Additional CSS to color rows in table1 */
+    .table1-container table tr {
+        transition: background-color 0.3s;
+    }
 
-        .table1-container table .conditional-row-green {
-            background-color: #aaffaa !important; /* Light green for values greater than 30 */
-        }
+    .table1-container table tr:hover {
+        background-color: #f0f0f0 !important; /* Light gray on hover */
+    }
 
-        .table1-container table .conditional-row-red {
-            background-color: #ffaaaa !important; /* Light red for values less than 10 */
-        }
+    .table1-container table .conditional-row-green {
+        background-color: #aaffaa !important; /* Light green for values greater than 30 */
+    }
 
-        .table1-container table .conditional-row-yellow {
-            background-color: #ffffaa !important; /* Light yellow for values between 10 and 30 */
-        }
+    .table1-container table .conditional-row-red {
+        background-color: #ffaaaa !important; /* Light red for values less than 10 */
+    }
 
-        .table1-container table tr.hover-effect {
-            background-color: #f0f0f0 !important; /* Light gray on hover */
-        }
+    .table1-container table .conditional-row-yellow {
+        background-color: #ffffaa !important; /* Light yellow for values between 10 and 30 */
+    }
 
-    </style>
-</head>
-<body>
-    <div class="container">
-        <img src="logo.jpg" alt="Logo" style="max-width: 200px;">
-        <h1>NBA Betting Analysis</h1>
-        <p>Welcome to BC Bets! This website uses machine learning to identify favorable NBA money line bets. It pulls all pregame lines listed on DraftKings’ website every hour and evaluates them. For each game, it picks the better of the two lines and calculates a “confidence”, with higher confidence corresponding to a better bet. Note that this methodology does not account for recent player injuries which shift the lines. It is recommended to track the health of star players and avoid bets in which the lines are heavily shifted by their availability. Make it pretty to look at, you can change font and formatting as much as you want.</p>
-        <div class="table-container">
-            <div class="table1-container">
-                <h1>DraftKings Moneylines</h1>
-                {{ table1_html|safe }}
-            </div>
-        </div>
-    </div>
+    .table1-container table tr.hover-effect {
+        background-color: #f0f0f0 !important; /* Light gray on hover */
+    }
 
-    <!-- JavaScript to convert last column values to percentages -->
-    <script>
-        $(document).ready(function () {
-            // Get all rows in the first table
-            var rows = $('.table1-container table tr');
-
-            // Iterate through rows and convert the last cell value to percentage
-            rows.each(function () {
-                var lastCell = $(this).find('td:last-child');
-                var lastCellValue = parseFloat(lastCell.text().trim());
-
-                if (!isNaN(lastCellValue)) {
-                    // Convert the value to percentage and update the cell
-                    var percentageValue = (lastCellValue * 100).toFixed(1) + '%';
-                    lastCell.text(percentageValue);
-
-                    // Apply conditional formatting based on the percentage
-                    if (lastCellValue > 0.1) {
-                        $(this).addClass('conditional-row-green'); // Apply green color
-                    } else if (lastCellValue < 0.05) {
-                        $(this).addClass('conditional-row-red'); // Apply red color
-                    } else {
-                        $(this).addClass('conditional-row-yellow'); // Apply yellow color
-                    }
-                }
-            });
-
-            // Add hover effect
-            rows.hover(
-                function () {
-                    $(this).addClass('hover-effect');
-                },
-                function () {
-                    $(this).removeClass('hover-effect');
-                }
-            );
-        });
-    </script>
-</body>
-</html>
+</style>
