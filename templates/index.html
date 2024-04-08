@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NBA Betting Analysis</title>
+    <title>BC BETS</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <style>
@@ -17,6 +17,7 @@
             align-items: center;
             justify-content: center;
             min-height: 100vh;
+            text-align: justify;
         }
 
         .container {
@@ -37,8 +38,7 @@
             overflow-y: auto; /* Enable vertical scrolling */
         }
 
-        .table1-container,
-        .table2-container {
+        .table1-container {
             flex: 1;
             padding: 20px;
         }
@@ -80,15 +80,15 @@
         }
 
         .table1-container table .conditional-row-green {
-            background-color: #aaffaa !important; /* Light green for values greater than 30 */
+            background-color: #aaffaa !important; /* Light green for values greater than 8 */
         }
 
         .table1-container table .conditional-row-red {
-            background-color: #ffaaaa !important; /* Light red for values less than 10 */
+            background-color: #ffaaaa !important; /* Light red for values less than 3 */
         }
 
         .table1-container table .conditional-row-yellow {
-            background-color: #ffffaa !important; /* Light yellow for values between 10 and 30 */
+            background-color: #ffffaa !important; /* Light yellow for values between 3 and 8 */
         }
 
         .table1-container table tr.hover-effect {
@@ -123,9 +123,9 @@
                     lastCell.text(percentageValue);
 
                     // Apply conditional formatting based on the percentage
-                    if (lastCellValue > 0.1) {
+                    if (lastCellValue > 0.08) {
                         $(this).addClass('conditional-row-green'); // Apply green color
-                    } else if (lastCellValue < 0.05) {
+                    } else if (lastCellValue < 0.03) {
                         $(this).addClass('conditional-row-red'); // Apply red color
                     } else {
                         $(this).addClass('conditional-row-yellow'); // Apply yellow color
