@@ -99,10 +99,13 @@
 </head>
 <body>
     <div class="container">
+        <h1>NBA Betting Analysis</h1>
         <p>Welcome to BC Bets! This website uses machine learning to identify favorable NBA money line bets. It pulls all pregame lines listed on DraftKings’ website every hour and evaluates them. For each game, it picks the better of the two lines and calculates a “confidence”, with higher confidence corresponding to a better bet. Note that this methodology does not account for recent player injuries which shift the lines. It is recommended to track the health of star players and avoid bets in which the lines are heavily shifted by their availability. Make it pretty to look at, you can change font and formatting as much as you want.</p>
-        <div class="table1-container">
-            <h1>DraftKings Moneylines</h1>
-            {{ table1_html|safe }}
+        <div class="table-container">
+            <div class="table1-container">
+                <h1>DraftKings Moneylines</h1>
+                {{ table1_html|safe }}
+            </div>
         </div>
     </div>
 
@@ -123,9 +126,9 @@
                     lastCell.text(percentageValue);
 
                     // Apply conditional formatting based on the percentage
-                    if (lastCellValue > 0.1) {
+                    if (lastCellValue > 0.08) {
                         $(this).addClass('conditional-row-green'); // Apply green color
-                    } else if (lastCellValue < 0.05) {
+                    } else if (lastCellValue < 0.03) {
                         $(this).addClass('conditional-row-red'); // Apply red color
                     } else {
                         $(this).addClass('conditional-row-yellow'); // Apply yellow color
