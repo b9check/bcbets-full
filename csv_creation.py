@@ -3,7 +3,11 @@ from compare_odds import get_DK_bets_analysis
 import pandas as pd
 import os
 
-file_path = os.getcwd() + '\DK_analysis.csv'
 DK_analysis = get_DK_bets_analysis()
+DK_path = os.getcwd() + '\DK_analysis.csv'
 
-DK_analysis.to_csv(file_path, index=False)
+[current_metrics, rounded_metrics] = get_current_metrics()
+metrics_path = os.getcwd() + '\rounded_metrics.csv'
+
+DK_analysis.to_csv(DK_path, index=False)
+rounded_metrics.to_csv(metrics_path, index=False)
